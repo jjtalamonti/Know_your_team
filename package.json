@@ -1,0 +1,28 @@
+{
+  "name": "know_your_team",
+  "version": "1.0.0",
+  "description": "generator that creates a team profile",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjtalamonti/Know_your_team.git"
+  },
+  "author": "Jason Talamonti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjtalamonti/Know_your_team/issues"
+  },
+  "homepage": "https://github.com/jjtalamonti/Know_your_team#readme",
+  "inquirer": "^6.5.0",
+  "devDependencies": {
+    "inquirer": "^6.5.0",
+    "jest": "^26.5.2"
+  }
+}
