@@ -55,7 +55,7 @@ const generateIntern = intern => {
 
 
 generateTeam = (input) => {
-
+    console.log(input)
     cardArray = [];
 
     for (let i = 0; i < input.length; i++) {
@@ -106,7 +106,7 @@ const generateHtml = function (employeeCards) {
         <main>
             <div class="container">
                 <div class="row justify-content-center">
-                    ${employeeCards}
+                    ${generateTeam(employeeCards)}
                 </div>
             </div>   
         </main>
@@ -119,4 +119,4 @@ const generateHtml = function (employeeCards) {
     `
 }
 
-module.exports = Generatehtml;
+module.exports = generateHtml;

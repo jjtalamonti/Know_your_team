@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Generatehtml = require('./src/generatehtml');
+const generateHtml = require('./src/generatehtml');
 const Manager = require('./lib/manager');
 const Intern = require('./lib/intern');
 const Engineer = require('./lib/engineer');
@@ -62,22 +62,26 @@ const team = () => {
         }])
         .then(function ({ role, name, id, email }) {
             let roleInfo = "";
+            let roleKey = "";
             if (role === "Manager") {
-                roleInfo = "Office number";
+                roleInfo = "Office number"
+                roleKey = "officeNum"
             } else if (role === "Engineer") {
                 roleInfo = "Github username"
+                roleKey = "github"
             } else {
-                roleInfo = "school name";
+                roleInfo = "school name"
+                roleKey = "school"
             }
             inquirer.prompt([{
                 type: "input",
-                message: "What is Employee's ${roleInfo}",
-                name: "roleinfo",
+                message: `What is Employee's ${roleInfo}?`,
+                name: `${roleKey}`,
                 validate: nameInput => {
                     if (nameInput) {
                         return true;
                     } else {
-                        console.log("Employee's ${roleInfo} must be entered to proceed!")
+                        console.log(`Employee's ${roleInfo} must be entered to proceed!`)
                         return false;
                     }
                 }
@@ -91,23 +95,26 @@ const team = () => {
                 ],
                 name: "addMember"
             }])
-                .then(function ({ roleInfo, addMember }) {
+                .then(function ({ roleKey, addMember }) {
                     let newMember;
                     if (role === "Manager") {
-                        newMember = new Manager(name, id, email, roleinfo);
+                        newMember = new Manager(name, id, email, `${roleKey}`);
                     } else if (role === "Engineer") {
-                        newMember = new Engineer(name, id, email, roleInfo);
+                        newMember = new Engineer(name, id, email, `${roleKey}`);
                     } else {
-                        newMember = new Intern(name, id, email, roleInfo)
+                        newMember = new Intern(name, id, email, `${roleKey}`)
                     }
+                    // console.log(newMember)
                     employees.push(newMember)
-                        .then(function () {
-                            if (addMember === "yes") {
-                                team(employees);
-                            } else {
-                                return employees;
-                            }
-                        });
+                    // console.log(employees)
+
+                    if (addMember === "yes") {
+                        team(employees);
+                    } else {
+                        generateHtml(employees);
+                        return employees;
+                    }
+
                 });
         });
 }
@@ -124,11 +131,11 @@ const generateFile = response => {
     })
 }
 team()
-    .then(employees => {
-        return Generatehtml(employees);
-    })
+    // .then(employees => {
+    //     return generateHtml(employees);
+    // })
     .then(htmlFin => {
-        return generateFile(htmlFin);
+        // return generateFile(htmlFin);
     })
     .catch(err => {
         console.log(err);
