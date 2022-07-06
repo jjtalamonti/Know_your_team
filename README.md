@@ -2,7 +2,7 @@
 
 ## Description
 
-- The reason for creating this project was to help me manage future teams. Instead of creating a new team list from scratch I can now use the integrated terminal to access the command prompts and simply answer the proceeding questions to fill out an employee list. This now solves the issue of structuring a an employee list and I can now use the time I save to complete other tasks
+- The reason for creating this project was to help me manage future teams. Instead of creating a new team list from scratch I can now use the integrated terminal to access the command prompts and simply answer the proceeding questions to fill out an employee list. This now solves the issue of structuring a an employee list and I can now use the time I save to complete other tasks. I have one minor bug when running commands id like to fix in the future. 
 
 ## Table of Contents
 
@@ -22,7 +22,10 @@
 
 - Use inquirer from your command line to answer questions about your project.
 - Run the 'node index.js' at the root of your project and answer the prompted questions
--
+
+https://user-images.githubusercontent.com/104233323/177453289-e737eb3a-b214-4e27-9fc9-8a6ee8091c35.mp4
+
+
 
 ## Contributing
 
