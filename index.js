@@ -8,7 +8,7 @@ const Engineer = require('./lib/engineer');
 const employees = [];
 
 const team = () => {
-    return inquirer.prompt([
+    inquirer.prompt([
         {
             type: "list",
             message: "What is the Employee's role?",
@@ -65,7 +65,7 @@ const team = () => {
             let roleKey = "";
             if (role === "Manager") {
                 roleInfo = "Office number"
-                roleKey = "officeNum"
+                roleKey = 'officeNum'
             } else if (role === "Engineer") {
                 roleInfo = "Github username"
                 roleKey = "github"
@@ -95,49 +95,57 @@ const team = () => {
                 ],
                 name: "addMember"
             }])
-                .then(function ({ roleKey, addMember }) {
+                .then(employeeInput => {
+                    let { officeNum, github, school, addMember } = employeeInput
                     let newMember;
                     if (role === "Manager") {
-                        newMember = new Manager(name, id, email, `${roleKey}`);
+                        newMember = new Manager(name, id, email, officeNum);
                     } else if (role === "Engineer") {
-                        newMember = new Engineer(name, id, email, `${roleKey}`);
-                    } else {
-                        newMember = new Intern(name, id, email, `${roleKey}`)
+                        newMember = new Engineer(name, id, email, github);
+                    } else if (role === "Intern") {
+                        newMember = new Intern(name, id, email, school)
                     }
                     // console.log(newMember)
-                    employees.push(newMember)
+                    employees.push(newMember);
                     // console.log(employees)
 
                     if (addMember === "yes") {
-                        team(employees);
+                        return team(employeeInput);
                     } else {
-                        generateHtml(employees);
+                        // generateHtml(employees);
                         return employees;
                     }
 
-                });
+                })
+                .then((response) => {
+
+                    return generateHtml(response)
+                })
+                .then(response => {
+                    return generateFile(response);
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         });
 }
 
+team()
+
+
 const generateFile = response => {
+
     fs.writeFile('./dist/index.html', response, err => {
         if (err) {
-            confirm.log(err);
+            console.log(err);
             return;
         } else {
             console.log("Your team index.html has been created in the dist folder!")
+            return generateFile;
+
         }
 
     })
 }
-team()
-    // .then(employees => {
-    //     return generateHtml(employees);
-    // })
-    .then(htmlFin => {
-        // return generateFile(htmlFin);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+
 

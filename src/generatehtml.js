@@ -21,7 +21,7 @@ const generateEngineer = engineer => {
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
     <div class="card-header">
         <h2>${engineer.name}</h2>
-        <h3>Engineer</h3><i class="bi bi-cup"></i>
+        <h3>Engineer</h3><i class="bi bi-hammer"></i>
     </div>
     <div class="card-body">
         <ul class="list-group list-group-flush">
@@ -39,7 +39,7 @@ const generateIntern = intern => {
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
     <div class="card-header">
         <h2>${intern.name}</h2>
-        <h3>Intern</h3><i class="bi bi-cup"></i>
+        <h3>Intern</h3><i class="bi bi-mortarboard"></i>
     </div>
     <div class="card-body">
         <ul class="list-group list-group-flush">
@@ -50,12 +50,11 @@ const generateIntern = intern => {
     </div>
     </div>
     `
-}
+};
 
 
 
 generateTeam = (input) => {
-    console.log(input)
     cardArray = [];
 
     for (let i = 0; i < input.length; i++) {
@@ -65,23 +64,27 @@ generateTeam = (input) => {
         if (employeeRole === 'Manager') {
             const managerInput = generateManager(card)
             cardArray.push(managerInput)
+
         }
-        if (employeeRole === 'Intern') {
+        else if (employeeRole === 'Intern') {
             const internInput = generateIntern(card)
             cardArray.push(internInput)
+
         }
-        if (employeeRole === 'Engineer') {
+        else if (employeeRole === 'Engineer') {
             const engineerInput = generateEngineer(card)
             cardArray.push(engineerInput)
+
         }
     }
     const employeeCards = cardArray.join('');
-    const generateEmployees = generateHtml(employeeCards);
+
+    const generateEmployees = generateForm(employeeCards);
     return generateEmployees;
 }
 
 
-const generateHtml = function (employeeCards) {
+const generateForm = function (employeeCards) {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -106,7 +109,7 @@ const generateHtml = function (employeeCards) {
         <main>
             <div class="container">
                 <div class="row justify-content-center">
-                    ${generateTeam(employeeCards)}
+                    ${employeeCards}
                 </div>
             </div>   
         </main>
@@ -119,4 +122,4 @@ const generateHtml = function (employeeCards) {
     `
 }
 
-module.exports = generateHtml;
+module.exports = generateTeam;
